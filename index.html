@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <title>BioBuddy Chat Bot</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BioBuddy: Animal Chat Bot</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="chat-container">
-    <div id="messages"></div>
-    <div id="input-area">
-      <input type="text" id="user-input" placeholder="พิมพ์คำถามของคุณ..." autofocus>
-      <button id="send-btn">ส่ง</button>
+  <div class="container">
+    <h1>🧬 BioBuddy - ผู้ช่วยสัตว์วิทยา</h1>
+    <div id="chatBox" class="chat-box"></div>
+    <div class="input-area">
+      <input id="userInput" type="text" placeholder="พิมพ์คำว่า 'ข้อมูล ปลาดาว' หรือ 'ทายว่าเป็น ปูเสฉวน'" />
+      <button id="sendBtn">ส่ง</button>
     </div>
   </div>
   <script src="bot.js"></script>
+  <script>
+    document.getElementById("sendBtn").addEventListener("click", () => {
+      const input = document.getElementById("userInput").value.trim();
+      if (!input) return;
+      const response = handleMessage(input);
+      const chatBox = document.getElementById("chatBox");
+      chatBox.innerHTML += `<div class='msg user'>👤 ${input}</div>`;
+      chatBox.innerHTML += `<div class='msg bot'>🤖 ${response.replace(/\n/g, '<br>')}</div>`;
+      chatBox.scrollTop = chatBox.scrollHeight;
+      document.getElementById("userInput").value = "";
+    });
+  </script>
 </body>
 </html>
